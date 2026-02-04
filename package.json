@@ -1,6 +1,8 @@
 {
-  "name": "nextjs_tailwind_shadcn_ts",
-  "version": "0.2.0",
+  "name": "gharkakhana",
+  "version": "0.1.0",
+  "description": "A home-cooked food delivery and management platform.",
+  "author": "zeroday",
   "private": true,
   "scripts": {
     "dev": "next dev -p 3001",
