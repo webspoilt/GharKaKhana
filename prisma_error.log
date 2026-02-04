@@ -1,0 +1,472 @@
+Environment variables loaded from .env
+Prisma schema loaded from prisma\schema.prisma
+Error: Prisma schema validation - (get-dmmf wasm)
+Error code: P1012
+[1;91merror[0m: [1mNative type Decimal is not supported for sqlite connector.[0m
+  [1;94m-->[0m  [4mprisma\schema.prisma:47[0m
+[1;94m   | [0m
+[1;94m46 | [0m  address               String?
+[1;94m47 | [0m  latitude              Decimal?  [1;91m@db.Decimal(10, 8)[0m
+[1;94m   | [0m
+[1;91merror[0m: [1mNative type Decimal is not supported for sqlite connector.[0m
+  [1;94m-->[0m  [4mprisma\schema.prisma:48[0m
+[1;94m   | [0m
+[1;94m47 | [0m  latitude              Decimal?  @db.Decimal(10, 8)
+[1;94m48 | [0m  longitude             Decimal?  [1;91m@db.Decimal(11, 8)[0m
+[1;94m   | [0m
+[1;91merror[0m: [1mNative type VarChar is not supported for sqlite connector.[0m
+  [1;94m-->[0m  [4mprisma\schema.prisma:49[0m
+[1;94m   | [0m
+[1;94m48 | [0m  longitude             Decimal?  @db.Decimal(11, 8)
+[1;94m49 | [0m  pincode               String?  [1;91m@db.VarChar(6)[0m
+[1;94m   | [0m
+[1;91merror[0m: [1mNative type VarChar is not supported for sqlite connector.[0m
+  [1;94m-->[0m  [4mprisma\schema.prisma:50[0m
+[1;94m   | [0m
+[1;94m49 | [0m  pincode               String?  @db.VarChar(6)
+[1;94m50 | [0m  city                  String?  [1;91m@db.VarChar(50)[0m
+[1;94m   | [0m
+[1;91merror[0m: [1mNative type VarChar is not supported for sqlite connector.[0m
+  [1;94m-->[0m  [4mprisma\schema.prisma:51[0m
+[1;94m   | [0m
+[1;94m50 | [0m  city                  String?  @db.VarChar(50)
+[1;94m51 | [0m  state                 String?  [1;91m@db.VarChar(50)[0m
+[1;94m   | [0m
+[1;91merror[0m: [1mNative type Decimal is not supported for sqlite connector.[0m
+  [1;94m-->[0m  [4mprisma\schema.prisma:54[0m
+[1;94m   | [0m
+[1;94m53 | [0m  favoriteCuisines      Json?    @map("favorite_cuisines")
+[1;94m54 | [0m  avgOrderValue         Decimal?  @map("avg_order_value") [1;91m@db.Decimal(10, 2)[0m
+[1;94m   | [0m
+[1;91merror[0m: [1mNative type VarChar is not supported for sqlite connector.[0m
+  [1;94m-->[0m  [4mprisma\schema.prisma:57[0m
+[1;94m   | [0m
+[1;94m56 | [0m  loyaltyPoints         Int      @default(0) @map("loyalty_points")
+[1;94m57 | [0m  subscriptionPlan      String?  @map("subscription_plan") [1;91m@db.VarChar(50)[0m
+[1;94m   | [0m
+[1;91merror[0m: [1mNative type VarChar is not supported for sqlite connector.[0m
+  [1;94m-->[0m  [4mprisma\schema.prisma:73[0m
+[1;94m   | [0m
+[1;94m72 | [0m  user                 User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+[1;94m73 | [0m  name                 String   [1;91m@db.VarChar(100)[0m
+[1;94m   | [0m
+[1;91merror[0m: [1mNative type VarChar is not supported for sqlite connector.[0m
+  [1;94m-->[0m  [4mprisma\schema.prisma:74[0m
+[1;94m   | [0m
+[1;94m73 | [0m  name                 String   @db.VarChar(100)
+[1;94m74 | [0m  phone                String   [1;91m@db.VarChar(15)[0m
+[1;94m   | [0m
+[1;91merror[0m: [1mNative type VarChar is not supported for sqlite connector.[0m
+  [1;94m-->[0m  [4mprisma\schema.prisma:75[0m
+[1;94m   | [0m
+[1;94m74 | [0m  phone                String   @db.VarChar(15)
+[1;94m75 | [0m  email                String?  [1;91m@db.VarChar(255)[0m
+[1;94m   | [0m
+[1;91merror[0m: [1mNative type VarChar is not supported for sqlite connector.[0m
+  [1;94m-->[0m  [4mprisma\schema.prisma:76[0m
+[1;94m   | [0m
+[1;94m75 | [0m  email                String?  @db.VarChar(255)
+[1;94m76 | [0m  fssaiLicenseNumber   String?  @unique @map("fssai_license_number") [1;91m@db.VarChar(20)[0m
+[1;94m   | [0m
+[1;91merror[0m: [1mNative type Decimal is not supported for sqlite connector.[0m
+  [1;94m-->[0m  [4mprisma\schema.prisma:79[0m
+[1;94m   | [0m
+[1;94m78 | [0m  kitchenAddress        String   @map("kitchen_address")
+[1;94m79 | [0m  latitude             Decimal  [1;91m@db.Decimal(10, 8)[0m
+[1;94m   | [0m
+[1;91merror[0m: [1mNative type Decimal is not supported for sqlite connector.[0m
+  [1;94m-->[0m  [4mprisma\schema.prisma:80[0m
+[1;94m   | [0m
+[1;94m79 | [0m  latitude             Decimal  @db.Decimal(10, 8)
+[1;94m80 | [0m  longitude            Decimal  [1;91m@db.Decimal(11, 8)[0m
+[1;94m   | [0m
+[1;91merror[0m: [1mNative type VarChar is not supported for sqlite connector.[0m
+  [1;94m-->[0m  [4mprisma\schema.prisma:81[0m
+[1;94m   | [0m
+[1;94m80 | [0m  longitude            Decimal  @db.Decimal(11, 8)
+[1;94m81 | [0m  pincode              String?  [1;91m@db.VarChar(6)[0m
+[1;94m   | [0m
+[1;91merror[0m: [1mNative type VarChar is not supported for sqlite connector.[0m
+  [1;94m-->[0m  [4mprisma\schema.prisma:82[0m
+[1;94m   | [0m
+[1;94m81 | [0m  pincode              String?  @db.VarChar(6)
+[1;94m82 | [0m  verificationStatus    String   @default("pending") @map("verification_status") [1;91m@db.VarChar(20)[0m // 'pending', 'approved', 'rejected', 'suspended'
+[1;94m   | [0m
+[1;91merror[0m: [1mNative type Decimal is not supported for sqlite connector.[0m
+  [1;94m-->[0m  [4mprisma\schema.prisma:88[0m
+[1;94m   | [0m
+[1;94m87 | [0m  specialties           Json?    // ['punjabi', 'south-indian']
+[1;94m88 | [0m  hygieneRating        Decimal  @default(4) @map("hygiene_rating") [1;91m@db.Decimal(3, 2)[0m
+[1;94m   | [0m
+[1;91merror[0m: [1mNative type Decimal is not supported for sqlite connector.[0m
+  [1;94m-->[0m  [4mprisma\schema.prisma:89[0m
+[1;94m   | [0m
+[1;94m88 | [0m  hygieneRating        Decimal  @default(4) @map("hygiene_rating") @db.Decimal(3, 2)
+[1;94m89 | [0m  overallRating        Decimal  @default(4) @map("overall_rating") [1;91m@db.Decimal(3, 2)[0m
+[1;94m   | [0m
+[1;91merror[0m: [1mNative type VarChar is not supported for sqlite connector.[0m
+  [1;94m-->[0m  [4mprisma\schema.prisma:113[0m
+[1;94m   | [0m
+[1;94m112 | [0m  chef              HomeChef @relation(fields: [chefId], references: [id], onDelete: Cascade)
+[1;94m113 | [0m  name              String   [1;91m@db.VarChar(100)[0m
+[1;94m   | [0m
+[1;91merror[0m: [1mNative type VarChar is not supported for sqlite connector.[0m
+  [1;94m-->[0m  [4mprisma\schema.prisma:114[0m
+[1;94m   | [0m
+[1;94m113 | [0m  name              String   @db.VarChar(100)
+[1;94m114 | [0m  nameHindi         String?  @map("name_hindi") [1;91m@db.VarChar(100)[0m
+[1;94m   | [0m
+[1;91merror[0m: [1mNative type VarChar is not supported for sqlite connector.[0m
+  [1;94m-->[0m  [4mprisma\schema.prisma:116[0m
+[1;94m   | [0m
+[1;94m115 | [0m  description       String?
+[1;94m116 | [0m  cuisineType       String   @map("cuisine_type") [1;91m@db.VarChar(50)[0m // 'north-indian', 'south-indian', 'punjabi'
+[1;94m   | [0m
+[1;91merror[0m: [1mNative type VarChar is not supported for sqlite connector.[0m
+  [1;94m-->[0m  [4mprisma\schema.prisma:117[0m
+[1;94m   | [0m
+[1;94m116 | [0m  cuisineType       String   @map("cuisine_type") @db.VarChar(50) // 'north-indian', 'south-indian', 'punjabi'
+[1;94m117 | [0m  category          String   [1;91m@db.VarChar(50)[0m // 'breakfast', 'lunch', 'dinner', 'snack'
+[1;94m   | [0m
+[1;91merror[0m: [1mNative type Decimal is not supported for sqlite connector.[0m
+  [1;94m-->[0m  [4mprisma\schema.prisma:119[0m
+[1;94m   | [0m
+[1;94m118 | [0m  dietaryTags       Json?    @map("dietary_tags") // ['veg', 'jain', 'gluten-free']
+[1;94m119 | [0m  price             Decimal  [1;91m@db.Decimal(10, 2)[0m
+[1;94m   | [0m
+[1;91merror[0m: [1mNative type Decimal is not supported for sqlite connector.[0m
+  [1;94m-->[0m  [4mprisma\schema.prisma:120[0m
+[1;94m   | [0m
+[1;94m119 | [0m  price             Decimal  @db.Decimal(10, 2)
+[1;94m120 | [0m  halfPortionPrice  Decimal? @map("half_portion_price") [1;91m@db.Decimal(10, 2)[0m
+[1;94m   | [0m
+[1;91merror[0m: [1mNative type VarChar is not supported for sqlite connector.[0m
+  [1;94m-->[0m  [4mprisma\schema.prisma:126[0m
+[1;94m   | [0m
+[1;94m125 | [0m  nutritionalInfo   Json?    @map("nutritional_info") // {calories, protein, carbs}
+[1;94m126 | [0m  spiceLevel        String?  @map("spice_level") [1;91m@db.VarChar(10)[0m // 'mild', 'medium', 'spicy'
+[1;94m   | [0m
+[1;91merror[0m: [1mNative type Decimal is not supported for sqlite connector.[0m
+  [1;94m-->[0m  [4mprisma\schema.prisma:156[0m
+[1;94m   | [0m
+[1;94m155 | [0m  items                 Json     // [{dish_id, quantity, price}]
+[1;94m156 | [0m  subtotal              Decimal  [1;91m@db.Decimal(10, 2)[0m
+[1;94m   | [0m
+[1;91merror[0m: [1mNative type Decimal is not supported for sqlite connector.[0m
+  [1;94m-->[0m  [4mprisma\schema.prisma:157[0m
+[1;94m   | [0m
+[1;94m156 | [0m  subtotal              Decimal  @db.Decimal(10, 2)
+[1;94m157 | [0m  deliveryFee           Decimal  @default(20) @map("delivery_fee") [1;91m@db.Decimal(10, 2)[0m
+[1;94m   | [0m
+[1;91merror[0m: [1mNative type Decimal is not supported for sqlite connector.[0m
+  [1;94m-->[0m  [4mprisma\schema.prisma:158[0m
+[1;94m   | [0m
+[1;94m157 | [0m  deliveryFee           Decimal  @default(20) @map("delivery_fee") @db.Decimal(10, 2)
+[1;94m158 | [0m  discount              Decimal  @default(0) [1;91m@db.Decimal(10, 2)[0m
+[1;94m   | [0m
+[1;91merror[0m: [1mNative type Decimal is not supported for sqlite connector.[0m
+  [1;94m-->[0m  [4mprisma\schema.prisma:159[0m
+[1;94m   | [0m
+[1;94m158 | [0m  discount              Decimal  @default(0) @db.Decimal(10, 2)
+[1;94m159 | [0m  totalAmount           Decimal  @map("total_amount") [1;91m@db.Decimal(10, 2)[0m
+[1;94m   | [0m
+[1;91merror[0m: [1mNative type Decimal is not supported for sqlite connector.[0m
+  [1;94m-->[0m  [4mprisma\schema.prisma:161[0m
+[1;94m   | [0m
+[1;94m160 | [0m  deliveryAddress       String   @map("delivery_address")
+[1;94m161 | [0m  deliveryLatitude      Decimal? @map("delivery_latitude") [1;91m@db.Decimal(10, 8)[0m
+[1;94m   | [0m
+[1;91merror[0m: [1mNative type Decimal is not supported for sqlite connector.[0m
+  [1;94m-->[0m  [4mprisma\schema.prisma:162[0m
+[1;94m   | [0m
+[1;94m161 | [0m  deliveryLatitude      Decimal? @map("delivery_latitude") @db.Decimal(10, 8)
+[1;94m162 | [0m  deliveryLongitude     Decimal? @map("delivery_longitude") [1;91m@db.Decimal(11, 8)[0m
+[1;94m   | [0m
+[1;91merror[0m: [1mNative type VarChar is not supported for sqlite connector.[0m
+  [1;94m-->[0m  [4mprisma\schema.prisma:163[0m
+[1;94m   | [0m
+[1;94m162 | [0m  deliveryLongitude     Decimal? @map("delivery_longitude") @db.Decimal(11, 8)
+[1;94m163 | [0m  status               String   @default("pending") [1;91m@db.VarChar(20)[0m // 'pending', 'accepted', 'cooking', 'packed', 'out_for_delivery', 'delivered', 'cancelled'
+[1;94m   | [0m
+[1;91merror[0m: [1mNative type Decimal is not supported for sqlite connector.[0m
+  [1;94m-->[0m  [4mprisma\schema.prisma:191[0m
+[1;94m   | [0m
+[1;94m190 | [0m  quantity  Int
+[1;94m191 | [0m  price      Decimal  [1;91m@db.Decimal(10, 2)[0m
+[1;94m   | [0m
+[1;91merror[0m: [1mNative type VarChar is not supported for sqlite connector.[0m
+  [1;94m-->[0m  [4mprisma\schema.prisma:192[0m
+[1;94m   | [0m
+[1;94m191 | [0m  price      Decimal  @db.Decimal(10, 2)
+[1;94m192 | [0m  portion   String?  [1;91m@db.VarChar(10)[0m // 'half', 'full'
+[1;94m   | [0m
+[1;91merror[0m: [1mNative type VarChar is not supported for sqlite connector.[0m
+  [1;94m-->[0m  [4mprisma\schema.prisma:202[0m
+[1;94m   | [0m
+[1;94m201 | [0m  order     Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+[1;94m202 | [0m  status    String   [1;91m@db.VarChar(20)[0m
+[1;94m   | [0m
+[1;91merror[0m: [1mNative type Decimal is not supported for sqlite connector.[0m
+  [1;94m-->[0m  [4mprisma\schema.prisma:220[0m
+[1;94m   | [0m
+[1;94m219 | [0m  user                 User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+[1;94m220 | [0m  amount               Decimal  [1;91m@db.Decimal(10, 2)[0m
+[1;94m   | [0m
+[1;91merror[0m: [1mNative type VarChar is not supported for sqlite connector.[0m
+  [1;94m-->[0m  [4mprisma\schema.prisma:221[0m
+[1;94m   | [0m
+[1;94m220 | [0m  amount               Decimal  @db.Decimal(10, 2)
+[1;94m221 | [0m  paymentMethod        String   @map("payment_method") [1;91m@db.VarChar(20)[0m // 'upi', 'card', 'netbanking', 'cod'
+[1;94m   | [0m
+[1;91merror[0m: [1mNative type VarChar is not supported for sqlite connector.[0m
+  [1;94m-->[0m  [4mprisma\schema.prisma:222[0m
+[1;94m   | [0m
+[1;94m221 | [0m  paymentMethod        String   @map("payment_method") @db.VarChar(20) // 'upi', 'card', 'netbanking', 'cod'
+[1;94m222 | [0m  paymentGateway       String?  @map("payment_gateway") [1;91m@db.VarChar(50)[0m
+[1;94m   | [0m
+[1;91merror[0m: [1mNative type VarChar is not supported for sqlite connector.[0m
+  [1;94m-->[0m  [4mprisma\schema.prisma:226[0m
+[1;94m   | [0m
+[1;94m225 | [0m  razorpayPaymentId   String?  @unique @map("razorpay_payment_id")
+[1;94m226 | [0m  status              String   @default("pending") [1;91m@db.VarChar(20)[0m // 'pending', 'completed', 'failed', 'refunded'
+[1;94m   | [0m
+[1;91merror[0m: [1mNative type Decimal is not supported for sqlite connector.[0m
+  [1;94m-->[0m  [4mprisma\schema.prisma:227[0m
+[1;94m   | [0m
+[1;94m226 | [0m  status              String   @default("pending") @db.VarChar(20) // 'pending', 'completed', 'failed', 'refunded'
+[1;94m227 | [0m  commissionAmount     Decimal? @map("commission_amount") [1;91m@db.Decimal(10, 2)[0m
+[1;94m   | [0m
+[1;91merror[0m: [1mNative type Decimal is not supported for sqlite connector.[0m
+  [1;94m-->[0m  [4mprisma\schema.prisma:228[0m
+[1;94m   | [0m
+[1;94m227 | [0m  commissionAmount     Decimal? @map("commission_amount") @db.Decimal(10, 2)
+[1;94m228 | [0m  chefPayoutAmount    Decimal? @map("chef_payout_amount") [1;91m@db.Decimal(10, 2)[0m
+[1;94m   | [0m
+[1;91merror[0m: [1mNative type Decimal is not supported for sqlite connector.[0m
+  [1;94m-->[0m  [4mprisma\schema.prisma:229[0m
+[1;94m   | [0m
+[1;94m228 | [0m  chefPayoutAmount    Decimal? @map("chef_payout_amount") @db.Decimal(10, 2)
+[1;94m229 | [0m  deliveryPayoutAmount Decimal? @map("delivery_payout_amount") [1;91m@db.Decimal(10, 2)[0m
+[1;94m   | [0m
+[1;91merror[0m: [1mNative type Text is not supported for sqlite connector.[0m
+  [1;94m-->[0m  [4mprisma\schema.prisma:256[0m
+[1;94m   | [0m
+[1;94m255 | [0m  hygieneRating       Int?     @map("hygiene_rating")
+[1;94m256 | [0m  comment             String?  [1;91m@db.Text[0m
+[1;94m   | [0m
+[1;91merror[0m: [1mNative type VarChar is not supported for sqlite connector.[0m
+  [1;94m-->[0m  [4mprisma\schema.prisma:276[0m
+[1;94m   | [0m
+[1;94m275 | [0m  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+[1;94m276 | [0m  name              String   [1;91m@db.VarChar(100)[0m
+[1;94m   | [0m
+[1;91merror[0m: [1mNative type VarChar is not supported for sqlite connector.[0m
+  [1;94m-->[0m  [4mprisma\schema.prisma:277[0m
+[1;94m   | [0m
+[1;94m276 | [0m  name              String   @db.VarChar(100)
+[1;94m277 | [0m  phone             String   [1;91m@db.VarChar(15)[0m
+[1;94m   | [0m
+[1;91merror[0m: [1mNative type VarChar is not supported for sqlite connector.[0m
+  [1;94m-->[0m  [4mprisma\schema.prisma:278[0m
+[1;94m   | [0m
+[1;94m277 | [0m  phone             String   @db.VarChar(15)
+[1;94m278 | [0m  aadhaarNumber      String?  @map("aadhaar_number") [1;91m@db.VarChar(12)[0m
+[1;94m   | [0m
+[1;91merror[0m: [1mNative type VarChar is not supported for sqlite connector.[0m
+  [1;94m-->[0m  [4mprisma\schema.prisma:279[0m
+[1;94m   | [0m
+[1;94m278 | [0m  aadhaarNumber      String?  @map("aadhaar_number") @db.VarChar(12)
+[1;94m279 | [0m  drivingLicense     String?  @map("driving_license") [1;91m@db.VarChar(20)[0m
+[1;94m   | [0m
+[1;91merror[0m: [1mNative type VarChar is not supported for sqlite connector.[0m
+  [1;94m-->[0m  [4mprisma\schema.prisma:280[0m
+[1;94m   | [0m
+[1;94m279 | [0m  drivingLicense     String?  @map("driving_license") @db.VarChar(20)
+[1;94m280 | [0m  vehicleType       String?  @map("vehicle_type") [1;91m@db.VarChar(20)[0m // 'bike', 'scooter'
+[1;94m   | [0m
+[1;91merror[0m: [1mNative type VarChar is not supported for sqlite connector.[0m
+  [1;94m-->[0m  [4mprisma\schema.prisma:281[0m
+[1;94m   | [0m
+[1;94m280 | [0m  vehicleType       String?  @map("vehicle_type") @db.VarChar(20) // 'bike', 'scooter'
+[1;94m281 | [0m  vehicleNumber     String?  @map("vehicle_number") [1;91m@db.VarChar(15)[0m
+[1;94m   | [0m
+[1;91merror[0m: [1mNative type Decimal is not supported for sqlite connector.[0m
+  [1;94m-->[0m  [4mprisma\schema.prisma:282[0m
+[1;94m   | [0m
+[1;94m281 | [0m  vehicleNumber     String?  @map("vehicle_number") @db.VarChar(15)
+[1;94m282 | [0m  currentLatitude    Decimal? @map("current_latitude") [1;91m@db.Decimal(10, 8)[0m
+[1;94m   | [0m
+[1;91merror[0m: [1mNative type Decimal is not supported for sqlite connector.[0m
+  [1;94m-->[0m  [4mprisma\schema.prisma:283[0m
+[1;94m   | [0m
+[1;94m282 | [0m  currentLatitude    Decimal? @map("current_latitude") @db.Decimal(10, 8)
+[1;94m283 | [0m  currentLongitude   Decimal? @map("current_longitude") [1;91m@db.Decimal(11, 8)[0m
+[1;94m   | [0m
+[1;91merror[0m: [1mNative type VarChar is not supported for sqlite connector.[0m
+  [1;94m-->[0m  [4mprisma\schema.prisma:285[0m
+[1;94m   | [0m
+[1;94m284 | [0m  isOnline          Boolean  @default(false) @map("is_online")
+[1;94m285 | [0m  verificationStatus String   @default("pending") @map("verification_status") [1;91m@db.VarChar(20)[0m
+[1;94m   | [0m
+[1;91merror[0m: [1mNative type Decimal is not supported for sqlite connector.[0m
+  [1;94m-->[0m  [4mprisma\schema.prisma:287[0m
+[1;94m   | [0m
+[1;94m286 | [0m  totalDeliveries   Int      @default(0) @map("total_deliveries")
+[1;94m287 | [0m  rating            Decimal  @default(4) [1;91m@db.Decimal(3, 2)[0m
+[1;94m   | [0m
+[1;91merror[0m: [1mNative type Decimal is not supported for sqlite connector.[0m
+  [1;94m-->[0m  [4mprisma\schema.prisma:303[0m
+[1;94m   | [0m
+[1;94m302 | [0m  pickupAddress   String   @map("pickup_address")
+[1;94m303 | [0m  pickupLatitude  Decimal? @map("pickup_latitude") [1;91m@db.Decimal(10, 8)[0m
+[1;94m   | [0m
+[1;91merror[0m: [1mNative type Decimal is not supported for sqlite connector.[0m
+  [1;94m-->[0m  [4mprisma\schema.prisma:304[0m
+[1;94m   | [0m
+[1;94m303 | [0m  pickupLatitude  Decimal? @map("pickup_latitude") @db.Decimal(10, 8)
+[1;94m304 | [0m  pickupLongitude Decimal? @map("pickup_longitude") [1;91m@db.Decimal(11, 8)[0m
+[1;94m   | [0m
+[1;91merror[0m: [1mNative type Decimal is not supported for sqlite connector.[0m
+  [1;94m-->[0m  [4mprisma\schema.prisma:306[0m
+[1;94m   | [0m
+[1;94m305 | [0m  dropAddress     String   @map("drop_address")
+[1;94m306 | [0m  dropLatitude    Decimal? @map("drop_latitude") [1;91m@db.Decimal(10, 8)[0m
+[1;94m   | [0m
+[1;91merror[0m: [1mNative type Decimal is not supported for sqlite connector.[0m
+  [1;94m-->[0m  [4mprisma\schema.prisma:307[0m
+[1;94m   | [0m
+[1;94m306 | [0m  dropLatitude    Decimal? @map("drop_latitude") @db.Decimal(10, 8)
+[1;94m307 | [0m  dropLongitude   Decimal? @map("drop_longitude") [1;91m@db.Decimal(11, 8)[0m
+[1;94m   | [0m
+[1;91merror[0m: [1mNative type Decimal is not supported for sqlite connector.[0m
+  [1;94m-->[0m  [4mprisma\schema.prisma:310[0m
+[1;94m   | [0m
+[1;94m309 | [0m  dropTime       DateTime? @map("drop_time")
+[1;94m310 | [0m  distanceKm     Decimal? @map("distance_km") [1;91m@db.Decimal(5, 2)[0m
+[1;94m   | [0m
+[1;91merror[0m: [1mNative type Decimal is not supported for sqlite connector.[0m
+  [1;94m-->[0m  [4mprisma\schema.prisma:311[0m
+[1;94m   | [0m
+[1;94m310 | [0m  distanceKm     Decimal? @map("distance_km") @db.Decimal(5, 2)
+[1;94m311 | [0m  payoutAmount    Decimal? @map("payout_amount") [1;91m@db.Decimal(10, 2)[0m
+[1;94m   | [0m
+[1;91merror[0m: [1mNative type VarChar is not supported for sqlite connector.[0m
+  [1;94m-->[0m  [4mprisma\schema.prisma:312[0m
+[1;94m   | [0m
+[1;94m311 | [0m  payoutAmount    Decimal? @map("payout_amount") @db.Decimal(10, 2)
+[1;94m312 | [0m  status         String   @default("assigned") [1;91m@db.VarChar(20)[0m // 'assigned', 'picked_up', 'delivered', 'cancelled'
+[1;94m   | [0m
+[1;91merror[0m: [1mNative type VarChar is not supported for sqlite connector.[0m
+  [1;94m-->[0m  [4mprisma\schema.prisma:326[0m
+[1;94m   | [0m
+[1;94m325 | [0m  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+[1;94m326 | [0m  planType     String   @map("plan_type") [1;91m@db.VarChar(50)[0m // 'basic', 'standard', 'premium'
+[1;94m   | [0m
+[1;91merror[0m: [1mNative type Decimal is not supported for sqlite connector.[0m
+  [1;94m-->[0m  [4mprisma\schema.prisma:329[0m
+[1;94m   | [0m
+[1;94m328 | [0m  endDate      DateTime @map("end_date")
+[1;94m329 | [0m  amountPaid   Decimal? @map("amount_paid") [1;91m@db.Decimal(10, 2)[0m
+[1;94m   | [0m
+[1;91merror[0m: [1mNative type VarChar is not supported for sqlite connector.[0m
+  [1;94m-->[0m  [4mprisma\schema.prisma:347[0m
+[1;94m   | [0m
+[1;94m346 | [0m  raisedBy      String   @map("raised_by")
+[1;94m347 | [0m  disputeType   String   @map("dispute_type") [1;91m@db.VarChar(50)[0m // 'food_quality', 'delivery', 'payment', 'hygiene'
+[1;94m   | [0m
+[1;91merror[0m: [1mNative type Text is not supported for sqlite connector.[0m
+  [1;94m-->[0m  [4mprisma\schema.prisma:348[0m
+[1;94m   | [0m
+[1;94m347 | [0m  disputeType   String   @map("dispute_type") @db.VarChar(50) // 'food_quality', 'delivery', 'payment', 'hygiene'
+[1;94m348 | [0m  description   String?  [1;91m@db.Text[0m
+[1;94m   | [0m
+[1;91merror[0m: [1mNative type VarChar is not supported for sqlite connector.[0m
+  [1;94m-->[0m  [4mprisma\schema.prisma:349[0m
+[1;94m   | [0m
+[1;94m348 | [0m  description   String?  @db.Text
+[1;94m349 | [0m  status        String   @default("open") [1;91m@db.VarChar(20)[0m // 'open', 'investigating', 'resolved', 'closed'
+[1;94m   | [0m
+[1;91merror[0m: [1mNative type Text is not supported for sqlite connector.[0m
+  [1;94m-->[0m  [4mprisma\schema.prisma:350[0m
+[1;94m   | [0m
+[1;94m349 | [0m  status        String   @default("open") @db.VarChar(20) // 'open', 'investigating', 'resolved', 'closed'
+[1;94m350 | [0m  resolution    String?  [1;91m@db.Text[0m
+[1;94m   | [0m
+[1;91merror[0m: [1mNative type Decimal is not supported for sqlite connector.[0m
+  [1;94m-->[0m  [4mprisma\schema.prisma:351[0m
+[1;94m   | [0m
+[1;94m350 | [0m  resolution    String?  @db.Text
+[1;94m351 | [0m  refundAmount  Decimal? @map("refund_amount") [1;91m@db.Decimal(10, 2)[0m
+[1;94m   | [0m
+[1;91merror[0m: [1mNative type Decimal is not supported for sqlite connector.[0m
+  [1;94m-->[0m  [4mprisma\schema.prisma:371[0m
+[1;94m   | [0m
+[1;94m370 | [0m  periodEnd     DateTime @map("period_end")
+[1;94m371 | [0m  totalAmount   Decimal  @map("total_amount") [1;91m@db.Decimal(10, 2)[0m
+[1;94m   | [0m
+[1;91merror[0m: [1mNative type Decimal is not supported for sqlite connector.[0m
+  [1;94m-->[0m  [4mprisma\schema.prisma:372[0m
+[1;94m   | [0m
+[1;94m371 | [0m  totalAmount   Decimal  @map("total_amount") @db.Decimal(10, 2)
+[1;94m372 | [0m  payoutAmount  Decimal  @map("payout_amount") [1;91m@db.Decimal(10, 2)[0m
+[1;94m   | [0m
+[1;91merror[0m: [1mNative type Decimal is not supported for sqlite connector.[0m
+  [1;94m-->[0m  [4mprisma\schema.prisma:373[0m
+[1;94m   | [0m
+[1;94m372 | [0m  payoutAmount  Decimal  @map("payout_amount") @db.Decimal(10, 2)
+[1;94m373 | [0m  commission    Decimal? [1;91m@db.Decimal(10, 2)[0m
+[1;94m   | [0m
+[1;91merror[0m: [1mNative type VarChar is not supported for sqlite connector.[0m
+  [1;94m-->[0m  [4mprisma\schema.prisma:374[0m
+[1;94m   | [0m
+[1;94m373 | [0m  commission    Decimal? @db.Decimal(10, 2)
+[1;94m374 | [0m  status        String   @default("pending") [1;91m@db.VarChar(20)[0m // 'pending', 'processed', 'failed'
+[1;94m   | [0m
+[1;91merror[0m: [1mNative type Text is not supported for sqlite connector.[0m
+  [1;94m-->[0m  [4mprisma\schema.prisma:390[0m
+[1;94m   | [0m
+[1;94m389 | [0m  code          String   @unique
+[1;94m390 | [0m  description   String?  [1;91m@db.Text[0m
+[1;94m   | [0m
+[1;91merror[0m: [1mNative type VarChar is not supported for sqlite connector.[0m
+  [1;94m-->[0m  [4mprisma\schema.prisma:391[0m
+[1;94m   | [0m
+[1;94m390 | [0m  description   String?  @db.Text
+[1;94m391 | [0m  discountType  String   @map("discount_type") [1;91m@db.VarChar(10)[0m // 'percentage', 'flat'
+[1;94m   | [0m
+[1;91merror[0m: [1mNative type Decimal is not supported for sqlite connector.[0m
+  [1;94m-->[0m  [4mprisma\schema.prisma:392[0m
+[1;94m   | [0m
+[1;94m391 | [0m  discountType  String   @map("discount_type") @db.VarChar(10) // 'percentage', 'flat'
+[1;94m392 | [0m  discountValue Decimal  @map("discount_value") [1;91m@db.Decimal(10, 2)[0m
+[1;94m   | [0m
+[1;91merror[0m: [1mNative type Decimal is not supported for sqlite connector.[0m
+  [1;94m-->[0m  [4mprisma\schema.prisma:393[0m
+[1;94m   | [0m
+[1;94m392 | [0m  discountValue Decimal  @map("discount_value") @db.Decimal(10, 2)
+[1;94m393 | [0m  minOrderValue Decimal? @map("min_order_value") [1;91m@db.Decimal(10, 2)[0m
+[1;94m   | [0m
+[1;91merror[0m: [1mNative type Decimal is not supported for sqlite connector.[0m
+  [1;94m-->[0m  [4mprisma\schema.prisma:394[0m
+[1;94m   | [0m
+[1;94m393 | [0m  minOrderValue Decimal? @map("min_order_value") @db.Decimal(10, 2)
+[1;94m394 | [0m  maxDiscount   Decimal? @map("max_discount") [1;91m@db.Decimal(10, 2)[0m
+[1;94m   | [0m
+[1;91merror[0m: [1mNative type VarChar is not supported for sqlite connector.[0m
+  [1;94m-->[0m  [4mprisma\schema.prisma:415[0m
+[1;94m   | [0m
+[1;94m414 | [0m  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+[1;94m415 | [0m  role        String   [1;91m@db.VarChar(20)[0m // 'super_admin', 'support', 'operations'
+[1;94m   | [0m
+[1;91merror[0m: [1mError validating field `disputes` in model `User`: The relation field `disputes` on model `User` is missing an opposite relation field on the model `Dispute`. Either run `prisma format` or add it manually.[0m
+  [1;94m-->[0m  [4mprisma\schema.prisma:35[0m
+[1;94m   | [0m
+[1;94m34 | [0m  subscriptions Subscription[]
+[1;94m35 | [0m  [1;91mdisputes      Dispute[][0m
+[1;94m36 | [0m  adminUser     AdminUser?
+[1;94m   | [0m
+
+Validation Error Count: 77
+[Context: getDmmf]
+
+Prisma CLI Version : 6.19.2

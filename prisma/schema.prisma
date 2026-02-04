@@ -1,0 +1,420 @@
+// prisma/schema.prisma
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// ============================================
+// USERS & AUTHENTICATION
+// ============================================
+
+model User {
+  id            String    @id @default(cuid())
+  phone         String    @unique
+  name          String?
+  email         String?   @unique
+  passwordHash  String?   @map("password_hash")
+  deviceId      String?   @map("device_id")
+  fcmToken      String?   @map("fcm_token")
+  isVerified    Boolean   @default(false) @map("is_verified")
+  createdAt     DateTime  @default(now()) @map("created_at")
+  updatedAt     DateTime  @updatedAt @map("updated_at")
+
+  profile       UserProfile?
+  chef          HomeChef?
+  deliveryPartner DeliveryPartner?
+  orders        Order[]
+  payments      Payment[]
+  reviews       Review[]
+  subscriptions Subscription[]
+  // disputes      Dispute[] // Removed because Dispute model doesn't have a direct User relation field
+  adminUser     AdminUser?
+
+  @@index([phone])
+  @@map("users")
+}
+
+model UserProfile {
+  id                    String   @id @default(cuid())
+  userId                String   @unique @map("user_id")
+  user                  User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  address               String?
+  latitude              Decimal?
+  longitude             Decimal?
+  pincode               String?
+  city                  String?
+  state                 String?
+  dietaryPreferences     Json?    @map("dietary_preferences") // ['veg', 'jain', 'low-oil']
+  favoriteCuisines      Json?    @map("favorite_cuisines")
+  avgOrderValue         Decimal?  @map("avg_order_value")
+  totalOrders           Int      @default(0) @map("total_orders")
+  loyaltyPoints         Int      @default(0) @map("loyalty_points")
+  subscriptionPlan      String?  @map("subscription_plan")
+  subscriptionExpiry    DateTime? @map("subscription_expiry")
+  createdAt             DateTime @default(now()) @map("created_at")
+  updatedAt             DateTime @updatedAt @map("updated_at")
+
+  @@map("user_profiles")
+}
+
+// ============================================
+// HOME CHEFS
+// ============================================
+
+model HomeChef {
+  id                   String   @id @default(cuid())
+  userId               String   @unique @map("user_id")
+  user                 User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  name                 String
+  phone                String
+  email                String?
+  fssaiLicenseNumber   String?  @unique @map("fssai_license_number")
+  fssaiExpiryDate      DateTime? @map("fssai_expiry_date")
+  kitchenAddress        String   @map("kitchen_address")
+  latitude             Decimal
+  longitude            Decimal
+  pincode              String?
+  verificationStatus    String   @default("pending") @map("verification_status") // 'pending', 'approved', 'rejected', 'suspended'
+  verificationDate     DateTime? @map("verification_date")
+  kitchenPhotos        Json?    @map("kitchen_photos") // URLs of kitchen images
+  profilePhoto         String?  @map("profile_photo")
+  bio                  String?
+  specialties           Json?    // ['punjabi', 'south-indian']
+  hygieneRating        Decimal  @default(4) @map("hygiene_rating")
+  overallRating        Decimal  @default(4) @map("overall_rating")
+  totalReviews         Int      @default(0) @map("total_reviews")
+  active               Boolean  @default(true)
+  createdAt            DateTime @default(now()) @map("created_at")
+  updatedAt            DateTime @updatedAt @map("updated_at")
+
+  dishes               Dish[]
+  orders               Order[]
+  reviews              Review[]
+  payouts              Payout[]
+
+  @@index([verificationStatus])
+  @@index([latitude, longitude])
+  @@map("home_chefs")
+}
+
+// ============================================
+// DISHES
+// ============================================
+
+model Dish {
+  id                String   @id @default(cuid())
+  chefId            String   @map("chef_id")
+  chef              HomeChef @relation(fields: [chefId], references: [id], onDelete: Cascade)
+  name              String
+  nameHindi         String?  @map("name_hindi")
+  description       String?
+  cuisineType       String   @map("cuisine_type") // 'north-indian', 'south-indian', 'punjabi'
+  category          String   // 'breakfast', 'lunch', 'dinner', 'snack'
+  dietaryTags       Json?    @map("dietary_tags") // ['veg', 'jain', 'gluten-free']
+  price             Decimal
+  halfPortionPrice  Decimal? @map("half_portion_price")
+  availablePortions Int      @default(10) @map("available_portions")
+  preparationTime   Int      @map("preparation_time") // in minutes
+  photos            Json?    // URLs of food images
+  ingredients       String?
+  nutritionalInfo   Json?    @map("nutritional_info") // {calories, protein, carbs}
+  spiceLevel        String?  @map("spice_level") // 'mild', 'medium', 'spicy'
+  availability      Json?    // {lunch: true, dinner: true}
+  active            Boolean  @default(true)
+  featured          Boolean  @default(false)
+  totalOrders       Int      @default(0) @map("total_orders")
+  createdAt         DateTime @default(now()) @map("created_at")
+  updatedAt         DateTime @updatedAt @map("updated_at")
+
+  orders            OrderItem[]
+  reviews           Review[]
+
+  @@index([chefId])
+  @@index([category])
+  @@index([cuisineType])
+  @@index([active])
+  @@map("dishes")
+}
+
+// ============================================
+// ORDERS
+// ============================================
+
+model Order {
+  id                    String   @id @default(cuid())
+  orderNumber           String   @unique @map("order_number") // GKK-2024-00001
+  userId                String   @map("user_id")
+  user                  User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  chefId                String   @map("chef_id")
+  chef                  HomeChef @relation(fields: [chefId], references: [id], onDelete: Cascade)
+  items                 Json     // [{dish_id, quantity, price}]
+  subtotal              Decimal
+  deliveryFee           Decimal  @default(20) @map("delivery_fee")
+  discount              Decimal  @default(0)
+  totalAmount           Decimal  @map("total_amount")
+  deliveryAddress       String   @map("delivery_address")
+  deliveryLatitude      Decimal? @map("delivery_latitude")
+  deliveryLongitude     Decimal? @map("delivery_longitude")
+  status               String   @default("pending") // 'pending', 'accepted', 'cooking', 'packed', 'out_for_delivery', 'delivered', 'cancelled'
+  estimatedDeliveryTime DateTime? @map("estimated_delivery_time")
+  actualDeliveryTime    DateTime? @map("actual_delivery_time")
+  specialInstructions   String?  @map("special_instructions")
+  createdAt            DateTime @default(now()) @map("created_at")
+  updatedAt            DateTime @updatedAt @map("updated_at")
+
+  orderItems           OrderItem[]
+  payments             Payment[]
+  orderStatusHistory    OrderStatusHistory[]
+  reviews              Review[]
+  deliveryAssignment    DeliveryAssignment?
+  dispute              Dispute?
+
+  @@index([userId])
+  @@index([chefId])
+  @@index([status])
+  @@index([createdAt])
+  @@map("orders")
+}
+
+model OrderItem {
+  id        String   @id @default(cuid())
+  orderId   String   @map("order_id")
+  order     Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  dishId    String   @map("dish_id")
+  dish      Dish     @relation(fields: [dishId], references: [id])
+  quantity  Int
+  price      Decimal
+  portion   String? // 'half', 'full'
+
+  @@unique([orderId, dishId])
+  @@map("order_items")
+}
+
+model OrderStatusHistory {
+  id        String   @id @default(cuid())
+  orderId   String   @map("order_id")
+  order     Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  status    String
+  notes     String?
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@index([orderId])
+  @@map("order_status_history")
+}
+
+// ============================================
+// PAYMENTS
+// ============================================
+
+model Payment {
+  id                   String   @id @default(cuid())
+  orderId              String   @unique @map("order_id")
+  order                Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  userId               String   @map("user_id")
+  user                 User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  amount               Decimal
+  paymentMethod        String   @map("payment_method") // 'upi', 'card', 'netbanking', 'cod'
+  paymentGateway       String?  @map("payment_gateway")
+  transactionId       String?  @unique @map("transaction_id")
+  razorpayOrderId      String?  @unique @map("razorpay_order_id")
+  razorpayPaymentId   String?  @unique @map("razorpay_payment_id")
+  status              String   @default("pending") // 'pending', 'completed', 'failed', 'refunded'
+  commissionAmount     Decimal? @map("commission_amount")
+  chefPayoutAmount    Decimal? @map("chef_payout_amount")
+  deliveryPayoutAmount Decimal? @map("delivery_payout_amount")
+  createdAt           DateTime @default(now()) @map("created_at")
+  updatedAt           DateTime @updatedAt @map("updated_at")
+
+  @@index([orderId])
+  @@index([status])
+  @@map("payments")
+}
+
+// ============================================
+// REVIEWS
+// ============================================
+
+model Review {
+  id                  String   @id @default(cuid())
+  orderId             String   @unique @map("order_id")
+  order               Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  userId              String   @map("user_id")
+  user                User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  chefId              String   @map("chef_id")
+  chef                HomeChef @relation(fields: [chefId], references: [id], onDelete: Cascade)
+  dishId              String?  @map("dish_id")
+  dish                Dish?    @relation(fields: [dishId], references: [id])
+  rating              Int
+  foodQualityRating    Int?     @map("food_quality_rating")
+  packagingRating     Int?     @map("packaging_rating")
+  hygieneRating       Int?     @map("hygiene_rating")
+  comment             String?
+  photos              Json?
+  helpfulCount        Int      @default(0) @map("helpful_count")
+  flagged             Boolean  @default(false)
+  createdAt           DateTime @default(now()) @map("created_at")
+
+  @@index([chefId])
+  @@index([dishId])
+  @@index([userId])
+  @@map("reviews")
+}
+
+// ============================================
+// DELIVERY PARTNERS
+// ============================================
+
+model DeliveryPartner {
+  id                String   @id @default(cuid())
+  userId            String   @unique @map("user_id")
+  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  name              String
+  phone             String
+  aadhaarNumber      String?  @map("aadhaar_number")
+  drivingLicense     String?  @map("driving_license")
+  vehicleType       String?  @map("vehicle_type") // 'bike', 'scooter'
+  vehicleNumber     String?  @map("vehicle_number")
+  currentLatitude    Decimal? @map("current_latitude")
+  currentLongitude   Decimal? @map("current_longitude")
+  isOnline          Boolean  @default(false) @map("is_online")
+  verificationStatus String   @default("pending") @map("verification_status")
+  totalDeliveries   Int      @default(0) @map("total_deliveries")
+  rating            Decimal  @default(4)
+  createdAt         DateTime @default(now()) @map("created_at")
+
+  deliveryAssignments DeliveryAssignment[]
+  payouts           Payout[]
+
+  @@map("delivery_partners")
+}
+
+model DeliveryAssignment {
+  id              String   @id @default(cuid())
+  orderId         String   @unique @map("order_id")
+  order           Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  deliveryPartnerId String   @map("delivery_partner_id")
+  deliveryPartner DeliveryPartner @relation(fields: [deliveryPartnerId], references: [id])
+  pickupAddress   String   @map("pickup_address")
+  pickupLatitude  Decimal? @map("pickup_latitude")
+  pickupLongitude Decimal? @map("pickup_longitude")
+  dropAddress     String   @map("drop_address")
+  dropLatitude    Decimal? @map("drop_latitude")
+  dropLongitude   Decimal? @map("drop_longitude")
+  pickupTime     DateTime? @map("pickup_time")
+  dropTime       DateTime? @map("drop_time")
+  distanceKm     Decimal? @map("distance_km")
+  payoutAmount    Decimal? @map("payout_amount")
+  status         String   @default("assigned") // 'assigned', 'picked_up', 'delivered', 'cancelled'
+  createdAt      DateTime @default(now()) @map("created_at")
+
+  @@map("delivery_assignments")
+}
+
+// ============================================
+// SUBSCRIPTIONS
+// ============================================
+
+model Subscription {
+  id           String   @id @default(cuid())
+  userId       String   @map("user_id")
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  planType     String   @map("plan_type") // 'basic', 'standard', 'premium'
+  startDate    DateTime @map("start_date")
+  endDate      DateTime @map("end_date")
+  amountPaid   Decimal? @map("amount_paid")
+  paymentId    String?  @map("payment_id")
+  active       Boolean  @default(true)
+  createdAt    DateTime @default(now()) @map("created_at")
+
+  @@index([userId])
+  @@map("subscriptions")
+}
+
+// ============================================
+// DISPUTES
+// ============================================
+
+model Dispute {
+  id            String   @id @default(cuid())
+  orderId       String   @unique @map("order_id")
+  order         Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  raisedBy      String   @map("raised_by")
+  disputeType   String   @map("dispute_type") // 'food_quality', 'delivery', 'payment', 'hygiene'
+  description   String?
+  status        String   @default("open") // 'open', 'investigating', 'resolved', 'closed'
+  resolution    String?
+  refundAmount  Decimal? @map("refund_amount")
+  resolvedBy    String?  @map("resolved_by")
+  createdAt     DateTime @default(now()) @map("created_at")
+  updatedAt     DateTime @updatedAt @map("updated_at")
+
+  @@map("disputes")
+}
+
+// ============================================
+// PAYOUTS
+// ============================================
+
+model Payout {
+  id            String   @id @default(cuid())
+  chefId        String?  @map("chef_id")
+  chef          HomeChef? @relation(fields: [chefId], references: [id])
+  deliveryPartnerId String? @map("delivery_partner_id")
+  deliveryPartner DeliveryPartner? @relation(fields: [deliveryPartnerId], references: [id])
+  periodStart   DateTime @map("period_start")
+  periodEnd     DateTime @map("period_end")
+  totalAmount   Decimal  @map("total_amount")
+  payoutAmount  Decimal  @map("payout_amount")
+  commission    Decimal?
+  status        String   @default("pending") // 'pending', 'processed', 'failed'
+  transactionId String?  @unique @map("transaction_id")
+  processedAt   DateTime? @map("processed_at")
+  createdAt     DateTime @default(now()) @map("created_at")
+
+  @@index([status])
+  @@map("payouts")
+}
+
+// ============================================
+// PROMOTIONS
+// ============================================
+
+model Promotion {
+  id            String   @id @default(cuid())
+  code          String   @unique
+  description   String?
+  discountType  String   @map("discount_type") // 'percentage', 'flat'
+  discountValue Decimal  @map("discount_value")
+  minOrderValue Decimal? @map("min_order_value")
+  maxDiscount   Decimal? @map("max_discount")
+  usageLimit    Int?     @map("usage_limit")
+  usedCount     Int      @default(0) @map("used_count")
+  validFrom     DateTime @map("valid_from")
+  validUntil    DateTime @map("valid_until")
+  active        Boolean  @default(true)
+  createdAt     DateTime @default(now()) @map("created_at")
+
+  @@index([code])
+  @@index([active])
+  @@map("promotions")
+}
+
+// ============================================
+// ADMIN USERS
+// ============================================
+
+model AdminUser {
+  id          String   @id @default(cuid())
+  userId      String   @unique @map("user_id")
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  role        String   // 'super_admin', 'support', 'operations'
+  permissions Json?
+  createdAt   DateTime @default(now()) @map("created_at")
+
+  @@map("admin_users")
+}
